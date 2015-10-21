@@ -262,6 +262,7 @@ typedef enum {
     AUDIO_FORMAT_E_AC3               = 0x0A000000UL,
     AUDIO_FORMAT_DTS                 = 0x0B000000UL,
     AUDIO_FORMAT_DTS_HD              = 0x0C000000UL,
+#ifdef QCOM_HARDWARE
     AUDIO_FORMAT_EVRC                = 0x10000000UL,
     AUDIO_FORMAT_QCELP               = 0x11000000UL,
     AUDIO_FORMAT_WMA                 = 0x12000000UL,
@@ -277,6 +278,7 @@ typedef enum {
     AUDIO_FORMAT_ALAC                = 0x1C000000UL,
     AUDIO_FORMAT_APE                 = 0x1D000000UL,
     AUDIO_FORMAT_AAC_ADTS            = 0x1E000000UL,
+#endif
     AUDIO_FORMAT_MAIN_MASK           = 0xFF000000UL,
     AUDIO_FORMAT_SUB_MASK            = 0x00FFFFFFUL,
 
@@ -315,6 +317,7 @@ typedef enum {
                                         AUDIO_FORMAT_AAC_SUB_HE_V2),
     AUDIO_FORMAT_AAC_ELD             = (AUDIO_FORMAT_AAC |
                                         AUDIO_FORMAT_AAC_SUB_ELD),
+#ifdef QCOM_HARDWARE
     AUDIO_FORMAT_AAC_ADTS_MAIN       = (AUDIO_FORMAT_AAC_ADTS |
                                         AUDIO_FORMAT_AAC_SUB_MAIN),
     AUDIO_FORMAT_AAC_ADTS_LC         = (AUDIO_FORMAT_AAC_ADTS |
@@ -340,6 +343,7 @@ typedef enum {
                                         AUDIO_FORMAT_PCM_SUB_16_BIT),
     AUDIO_FORMAT_PCM_24_BIT_OFFLOAD  = (AUDIO_FORMAT_PCM_OFFLOAD |
                                         AUDIO_FORMAT_PCM_SUB_8_24_BIT),
+#endif
 } audio_format_t;
 
 /* For the channel mask for position assignment representation */
@@ -380,9 +384,11 @@ enum {
     AUDIO_CHANNEL_OUT_MONO     = AUDIO_CHANNEL_OUT_FRONT_LEFT,
     AUDIO_CHANNEL_OUT_STEREO   = (AUDIO_CHANNEL_OUT_FRONT_LEFT |
                                   AUDIO_CHANNEL_OUT_FRONT_RIGHT),
+#ifdef QCOM_HARDWARE
     AUDIO_CHANNEL_OUT_2POINT1  = (AUDIO_CHANNEL_OUT_FRONT_LEFT |
                                   AUDIO_CHANNEL_OUT_FRONT_RIGHT |
                                   AUDIO_CHANNEL_OUT_FRONT_CENTER),
+#endif
     AUDIO_CHANNEL_OUT_QUAD     = (AUDIO_CHANNEL_OUT_FRONT_LEFT |
                                   AUDIO_CHANNEL_OUT_FRONT_RIGHT |
                                   AUDIO_CHANNEL_OUT_BACK_LEFT |
@@ -393,12 +399,14 @@ enum {
                                   AUDIO_CHANNEL_OUT_FRONT_RIGHT |
                                   AUDIO_CHANNEL_OUT_SIDE_LEFT |
                                   AUDIO_CHANNEL_OUT_SIDE_RIGHT),
+#ifdef QCOM_HARDWARE
     AUDIO_CHANNEL_OUT_SURROUND = (AUDIO_CHANNEL_OUT_FRONT_LEFT |
                                   AUDIO_CHANNEL_OUT_FRONT_RIGHT |
                                   AUDIO_CHANNEL_OUT_FRONT_CENTER |
                                   AUDIO_CHANNEL_OUT_BACK_CENTER),
     AUDIO_CHANNEL_OUT_PENTA =    (AUDIO_CHANNEL_OUT_QUAD |
                                   AUDIO_CHANNEL_OUT_FRONT_CENTER),
+#endif
     AUDIO_CHANNEL_OUT_5POINT1  = (AUDIO_CHANNEL_OUT_FRONT_LEFT |
                                   AUDIO_CHANNEL_OUT_FRONT_RIGHT |
                                   AUDIO_CHANNEL_OUT_FRONT_CENTER |
@@ -413,6 +421,7 @@ enum {
                                   AUDIO_CHANNEL_OUT_LOW_FREQUENCY |
                                   AUDIO_CHANNEL_OUT_SIDE_LEFT |
                                   AUDIO_CHANNEL_OUT_SIDE_RIGHT),
+#ifdef QCOM_HARDWARE
     AUDIO_CHANNEL_OUT_6POINT1  = (AUDIO_CHANNEL_OUT_FRONT_LEFT |
                                   AUDIO_CHANNEL_OUT_FRONT_RIGHT |
                                   AUDIO_CHANNEL_OUT_FRONT_CENTER |
@@ -420,6 +429,7 @@ enum {
                                   AUDIO_CHANNEL_OUT_BACK_LEFT |
                                   AUDIO_CHANNEL_OUT_BACK_RIGHT |
                                   AUDIO_CHANNEL_OUT_BACK_CENTER),
+#endif
     // matches the correct AudioFormat.CHANNEL_OUT_7POINT1_SURROUND definition for 7.1
     AUDIO_CHANNEL_OUT_7POINT1  = (AUDIO_CHANNEL_OUT_FRONT_LEFT |
                                   AUDIO_CHANNEL_OUT_FRONT_RIGHT |
@@ -471,6 +481,7 @@ enum {
     AUDIO_CHANNEL_IN_MONO   = AUDIO_CHANNEL_IN_FRONT,
     AUDIO_CHANNEL_IN_STEREO = (AUDIO_CHANNEL_IN_LEFT | AUDIO_CHANNEL_IN_RIGHT),
     AUDIO_CHANNEL_IN_FRONT_BACK = (AUDIO_CHANNEL_IN_FRONT | AUDIO_CHANNEL_IN_BACK),
+#ifdef QCOM_HARDWARE
     AUDIO_CHANNEL_IN_5POINT1 = (AUDIO_CHANNEL_IN_LEFT |
                                AUDIO_CHANNEL_IN_RIGHT |
                                AUDIO_CHANNEL_IN_FRONT |
@@ -480,6 +491,7 @@ enum {
     AUDIO_CHANNEL_IN_VOICE_UPLINK_MONO = (AUDIO_CHANNEL_IN_VOICE_UPLINK | AUDIO_CHANNEL_IN_MONO),
     AUDIO_CHANNEL_IN_VOICE_DNLINK_MONO = (AUDIO_CHANNEL_IN_VOICE_DNLINK | AUDIO_CHANNEL_IN_MONO),
     AUDIO_CHANNEL_IN_VOICE_CALL_MONO   = (AUDIO_CHANNEL_IN_VOICE_UPLINK_MONO | AUDIO_CHANNEL_IN_VOICE_DNLINK_MONO),
+#endif
     AUDIO_CHANNEL_IN_ALL    = (AUDIO_CHANNEL_IN_LEFT |
                                AUDIO_CHANNEL_IN_RIGHT |
                                AUDIO_CHANNEL_IN_FRONT |
@@ -681,7 +693,9 @@ enum {
     /* limited-output speaker device for acoustic safety */
     AUDIO_DEVICE_OUT_SPEAKER_SAFE              = 0x400000,
     AUDIO_DEVICE_OUT_IP                        = 0x800000,
+#ifdef QCOM_HARDWARE
     AUDIO_DEVICE_OUT_PROXY                     = 0x1000000,
+#endif
     AUDIO_DEVICE_OUT_DEFAULT                   = AUDIO_DEVICE_BIT_DEFAULT,
     AUDIO_DEVICE_OUT_ALL      = (AUDIO_DEVICE_OUT_EARPIECE |
                                  AUDIO_DEVICE_OUT_SPEAKER |
@@ -707,7 +721,9 @@ enum {
                                  AUDIO_DEVICE_OUT_AUX_LINE |
                                  AUDIO_DEVICE_OUT_SPEAKER_SAFE |
                                  AUDIO_DEVICE_OUT_IP |
+#ifdef QCOM_HARDWARE
                                  AUDIO_DEVICE_OUT_PROXY |
+#endif
                                  AUDIO_DEVICE_OUT_DEFAULT),
     AUDIO_DEVICE_OUT_ALL_A2DP = (AUDIO_DEVICE_OUT_BLUETOOTH_A2DP |
                                  AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES |
@@ -745,7 +761,9 @@ enum {
     AUDIO_DEVICE_IN_BLUETOOTH_A2DP        = AUDIO_DEVICE_BIT_IN | 0x20000,
     AUDIO_DEVICE_IN_LOOPBACK              = AUDIO_DEVICE_BIT_IN | 0x40000,
     AUDIO_DEVICE_IN_IP                    = AUDIO_DEVICE_BIT_IN | 0x80000,
+#ifdef QCOM_HARDWARE
     AUDIO_DEVICE_IN_PROXY                 = AUDIO_DEVICE_BIT_IN | 0x1000000,
+#endif
     AUDIO_DEVICE_IN_DEFAULT               = AUDIO_DEVICE_BIT_IN | AUDIO_DEVICE_BIT_DEFAULT,
 
     AUDIO_DEVICE_IN_ALL     = (AUDIO_DEVICE_IN_COMMUNICATION |
@@ -767,7 +785,9 @@ enum {
                                AUDIO_DEVICE_IN_SPDIF |
                                AUDIO_DEVICE_IN_BLUETOOTH_A2DP |
                                AUDIO_DEVICE_IN_LOOPBACK |
+#ifdef QCOM_HARDWARE 
                                AUDIO_DEVICE_IN_PROXY |
+#endif
                                AUDIO_DEVICE_IN_IP |
                                AUDIO_DEVICE_IN_DEFAULT),
     AUDIO_DEVICE_IN_ALL_SCO = AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET,
@@ -810,10 +830,12 @@ typedef enum {
 
     AUDIO_OUTPUT_FLAG_IEC958_NONAUDIO = 0x400, // Audio stream contains compressed audio in
                                                // SPDIF data bursts, not PCM.
+#ifdef QCOM_HARDWARE
     AUDIO_OUTPUT_FLAG_VOIP_RX = 0x800,  // use this flag in combination with DIRECT to
                                          // start voip over voice path.
     AUDIO_OUTPUT_FLAG_COMPRESS_PASSTHROUGH = 0x1000, // flag for HDMI compressed passthrough
     AUDIO_OUTPUT_FLAG_DIRECT_PCM = 0x2000, // flag for Direct PCM
+#endif
 } audio_output_flags_t;
 
 /* The audio input flags are analogous to audio output flags.
@@ -846,9 +868,11 @@ typedef struct {
     int64_t duration_us;                // duration in microseconds, -1 if unknown
     bool has_video;                     // true if stream is tied to a video stream
     bool is_streaming;                  // true if streaming, false if local playback
+#ifdef QCOM_HARDWARE
     uint32_t bit_width;
     uint32_t offload_buffer_size;       // offload fragment size
     audio_usage_t usage;
+#endif
 } audio_offload_info_t;
 
 #define AUDIO_MAKE_OFFLOAD_INFO_VERSION(maj,min) \
@@ -868,9 +892,11 @@ static const audio_offload_info_t AUDIO_INFO_INITIALIZER = {
     duration_us: 0,
     has_video: false,
     is_streaming: false,
+#ifdef QCOM_HARDWARE
     bit_width: 16,
     offload_buffer_size: 0,
     usage: AUDIO_USAGE_UNKNOWN,
+#endif
 };
 
 /* common audio stream configuration parameters
@@ -1436,7 +1462,9 @@ static inline bool audio_is_valid_format(audio_format_t format)
     case AUDIO_FORMAT_AMR_NB:
     case AUDIO_FORMAT_AMR_WB:
     case AUDIO_FORMAT_AAC:
+#ifdef QCOM_HARDWARE
     case AUDIO_FORMAT_AAC_ADTS:
+#endif
     case AUDIO_FORMAT_HE_AAC_V1:
     case AUDIO_FORMAT_HE_AAC_V2:
     case AUDIO_FORMAT_VORBIS:
@@ -1445,6 +1473,7 @@ static inline bool audio_is_valid_format(audio_format_t format)
     case AUDIO_FORMAT_E_AC3:
     case AUDIO_FORMAT_DTS:
     case AUDIO_FORMAT_DTS_HD:
+#ifdef QCOM_HARDWARE
     case AUDIO_FORMAT_QCELP:
     case AUDIO_FORMAT_EVRC:
     case AUDIO_FORMAT_EVRCB:
@@ -1465,6 +1494,7 @@ static inline bool audio_is_valid_format(audio_format_t format)
             return false;
         }
         return true;
+#endif
     default:
         return false;
     }
@@ -1482,14 +1512,18 @@ static inline size_t audio_bytes_per_sample(audio_format_t format)
     switch (format) {
     case AUDIO_FORMAT_PCM_32_BIT:
     case AUDIO_FORMAT_PCM_8_24_BIT:
+#ifdef QCOM_HARDWARE
     case AUDIO_FORMAT_PCM_24_BIT_OFFLOAD:
+#endif
         size = sizeof(int32_t);
         break;
     case AUDIO_FORMAT_PCM_24_BIT_PACKED:
         size = sizeof(uint8_t) * 3;
         break;
     case AUDIO_FORMAT_PCM_16_BIT:
+#ifdef QCOM_HARDWARE
     case AUDIO_FORMAT_PCM_16_BIT_OFFLOAD:
+#endif
         size = sizeof(int16_t);
         break;
     case AUDIO_FORMAT_PCM_8_BIT:

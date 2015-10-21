@@ -134,6 +134,7 @@ void memcpy_by_audio_format(void *dst, audio_format_t dst_format,
             break;
         }
         break;
+#ifdef QCOM_HARDWARE
     case AUDIO_FORMAT_PCM_24_BIT_OFFLOAD: {
         // pcm 24 bit with padding at LSB
         // can assume LE?
@@ -160,6 +161,7 @@ void memcpy_by_audio_format(void *dst, audio_format_t dst_format,
         }
         break;
     }
+#endif
     default:
         break;
     }
